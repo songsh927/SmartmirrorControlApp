@@ -1,10 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'controllerPage.dart';
+import 'schedulePage.dart';
+import 'settingPage.dart';
 
 void main() {
-  runApp(MaterialApp(
-      home: MyApp()
-  )
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (c) => AppData()),
+    ],
+    child: MaterialApp(
+        home: MyApp()
+    ),)
   );
+}
+
+class AppData extends ChangeNotifier{
+
+  List scheduleData = [
+    {
+      'date' : '20220808',
+      'title' : 'hello',
+      'text' : 'Flutter'
+    },
+    {
+      'date' : '20220808',
+      'title' : 'google',
+      'text' : 'Flutter'
+    }
+  ];
+
+  getSchedule(){}
+
+  addSchedule(){}
+
+
+
 }
 
 class MyApp extends StatefulWidget {
@@ -20,14 +52,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('SmartMirror Controller'),
-      ),
-
       body: [
-        schedulePage(),
-        controllerPage(),
-        settingPage()
+        SchedulePage(),
+        ControllerPage(),
+        SettingPage()
       ][tab],
 
       bottomNavigationBar: BottomNavigationBar(
@@ -43,69 +71,23 @@ class _MyAppState extends State<MyApp> {
 
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.today_outlined),
+            icon: Icon(tab == 0 ? Icons.today_outlined : Icons.today , color: Colors.blueGrey,),
             label: 'schedule',
-            activeIcon: Icon(Icons.today),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.today_outlined),
+            icon: Icon(tab == 1 ? Icons.control_camera_outlined : Icons.control_camera , color: Colors.blueGrey,),
             label: 'controller',
-            activeIcon: Icon(Icons.today),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.today_outlined),
-            label: 'setting',
-            activeIcon: Icon(Icons.today),
-          ),
+            icon: Icon(tab == 2 ? Icons.settings_applications_outlined : Icons.settings_applications , color: Colors.blueGrey,),
+            label: 'controller',
+          )
         ],
       ),
-
     );
   }
 }
 
-class schedulePage extends StatefulWidget {
-  const schedulePage({Key? key}) : super(key: key);
-
-  @override
-  _schedulePageState createState() => _schedulePageState();
-}
-
-class _schedulePageState extends State<schedulePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text('달력 및 스케줄 페이지'),
-    );
-  }
-}
-
-class controllerPage extends StatefulWidget {
-  const controllerPage({Key? key}) : super(key: key);
-
-  @override
-  _controllerPageState createState() => _controllerPageState();
-}
-
-class _controllerPageState extends State<controllerPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text('주변기기 제어페이지'),
-    );
-  }
-}
-
-class settingPage extends StatelessWidget {
-  const settingPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text('세팅페이지'),
-    );
-  }
-}
 
 
 
