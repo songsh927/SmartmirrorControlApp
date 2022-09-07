@@ -14,30 +14,161 @@ class _ControllerPageState extends State<ControllerPage> {
       appBar: AppBar(
         title: Text('Controller'),
       ),
-      body: Container(
-        child: ListView(
-          padding: EdgeInsets.all(5),
-          children: [
-            Container(
+      body: Column(
+        children: [
+          /*
+          * 전등
+          * */
+          Expanded(
+            flex: 1,
+            child: Container(
+              width: double.infinity,
               margin: EdgeInsets.all(5),
-              color: Colors.green,
-              height: 150,
-              child: Text('1'),
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  color: Colors.white70,
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 3,
+                        blurRadius: 3,
+                        offset: Offset(0,3)
+                    )
+                  ]
+              ),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('전등'),
+                      Icon(Icons.power_settings_new),
+                      IconButton(
+                          icon: Icon(Icons.settings_applications_outlined),
+                          onPressed: (){})
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      OutlinedButton(
+                          child: Text('On'),
+                          onPressed: (){}),
+                      OutlinedButton(
+                          child: Text('Off'),
+                          onPressed: (){})
+                    ],
+                  )
+                ],
+              ),
+
             ),
-            Container(
+          ),
+          /*
+          * 커튼
+          * */
+          Expanded(
+            flex: 1,
+            child: Container(
+              width: double.infinity,
               margin: EdgeInsets.all(5),
-              color: Colors.amber,
-              height: 150,
-              child: Text('2'),
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  color: Colors.white70,
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 3,
+                        blurRadius: 3,
+                        offset: Offset(0,3)
+                    )
+                  ]
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('커튼'),
+                      Icon(Icons.power_settings_new),
+                      IconButton(
+                          icon: Icon(Icons.settings_applications_outlined),
+                          onPressed: (){})
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      OutlinedButton(
+                          child: Text('On'),
+                          onPressed: (){}),
+                      OutlinedButton(
+                          child: Text('Off'),
+                          onPressed: (){})
+                    ],
+                  )
+                ],
+              ),
             ),
-            Container(
+          ),
+          /*
+          * 에어컨
+          * */
+          Expanded(
+            flex: 1,
+            child: Container(
+              width: double.infinity,
               margin: EdgeInsets.all(5),
-              color: Colors.blueGrey,
-              height: 150,
-              child: Text('3'),
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Colors.white70,
+                border: Border.all(),
+                borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 3,
+                        blurRadius: 3,
+                        offset: Offset(0,3)
+                    )
+                  ]
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('에어컨'),
+                      Icon(Icons.power_settings_new),
+                      IconButton(
+                          icon: Icon(Icons.settings_applications_outlined),
+                          onPressed: (){})
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      OutlinedButton(
+                          child: Text('On'),
+                          onPressed: (){}),
+                      OutlinedButton(
+                          child: Text('Off'),
+                          onPressed: (){})
+                    ],
+                  )
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

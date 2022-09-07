@@ -35,7 +35,11 @@ class AppData extends ChangeNotifier{
 
   addSchedule(){}
 
+  updateSchedule(){}
 
+  deleteSchedule(){}
+
+  moduleController(){}
 
 }
 
@@ -71,15 +75,15 @@ class _MyAppState extends State<MyApp> {
 
         items: [
           BottomNavigationBarItem(
-            icon: Icon(tab == 0 ? Icons.today_outlined : Icons.today , color: Colors.blueGrey,),
+            icon: Icon(tab == 0 ? Icons.today : Icons.today_outlined , color: Colors.blueGrey,),
             label: 'schedule',
           ),
           BottomNavigationBarItem(
-            icon: Icon(tab == 1 ? Icons.control_camera_outlined : Icons.control_camera , color: Colors.blueGrey,),
+            icon: Icon(tab == 1 ? Icons.contactless : Icons.contactless_outlined , color: Colors.blueGrey,),
             label: 'controller',
           ),
           BottomNavigationBarItem(
-            icon: Icon(tab == 2 ? Icons.settings_applications_outlined : Icons.settings_applications , color: Colors.blueGrey,),
+            icon: Icon(tab == 2 ? Icons.settings_applications : Icons.settings_applications_outlined , color: Colors.blueGrey,),
             label: 'controller',
           )
         ],
