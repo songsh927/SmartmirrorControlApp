@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 import 'controllerPage.dart';
 import 'schedulePage.dart';
@@ -7,8 +10,9 @@ import 'settingPage.dart';
 
 void main() {
   runApp(
-    MultiProvider(providers: [
-      ChangeNotifierProvider(create: (c) => AppData()),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (c) => SmartmirrorData()),
     ],
     child: MaterialApp(
         home: MyApp()
@@ -16,32 +20,66 @@ void main() {
   );
 }
 
-class AppData extends ChangeNotifier{
+class SmartmirrorData extends ChangeNotifier{
 
-  List scheduleData = [
-    {
-      'date' : '20220808',
-      'title' : 'hello',
-      'text' : 'Flutter'
-    },
-    {
-      'date' : '20220808',
-      'title' : 'google',
-      'text' : 'Flutter'
-    }
-  ];
+  var scheduleData = [];
 
   getSchedule(){}
 
-  addSchedule(){}
+  addSchedule(date, title, text) async{
+    http.Response res = await http.post(
+      Uri.parse('http://localhost:3000/schedule'),
+      headers: {"Content-type" : "application/json"},
+      body: jsonEncode({
+        'date' : date,
+        'title': title,
+        'text' : text
+      })
+    );
 
-  updateSchedule(){}
+    if(res.statusCode == 201){
+      var schedule = jsonDecode(res.body);
+      scheduleData.add(schedule);
+      notifyListeners();
+    }
 
-  deleteSchedule(){}
+    if(res.statusCode != 201){
+      var errorMsg = jsonDecode(res.body)['message'];
+    }
+
+  }
+
+  updateSchedule(id,date, title, text){
+
+  }
+
+  deleteSchedule(id) async{
+    http.Response res = await http.delete(
+      Uri.parse('http://localhost:3000/schedule/${id}'),
+      headers: {"Content-type" : "application/json"},
+    );
+
+    if(res.statusCode == 204){
+      for (int i = 0 ; i < scheduleData.length ; i++) {
+        if(id == scheduleData[i]['id']){
+          scheduleData.removeAt(i);
+        }
+      }
+      notifyListeners();
+    }
+
+    if(res.statusCode != 204){
+      /**
+       * 에러메세지 추가
+       * */
+      print('error!');
+    }
+  }
 
   moduleController(){}
 
 }
+
 
 class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
