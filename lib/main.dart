@@ -76,7 +76,35 @@ class SmartmirrorData extends ChangeNotifier{
     }
   }
 
-  moduleController(){}
+  moduleOnController(moduleNum, options) async{
+
+    var data;
+
+    if(moduleNum == 3){
+      data = {
+        "ctrl" : 1,
+        "redValue":"250",
+        "greenValue":"250",
+        "blueValue":"200"
+      };
+    }
+    else if(moduleNum == 1){
+
+    }
+    else if(moduleNum ==2){
+
+    }
+
+    http.Response res = await http.post(
+        Uri.parse('http://localhost:3000/schedule'),
+        headers: {"Content-type" : "application/json"},
+        body: jsonEncode(data)
+    );
+
+
+  }
+
+  moduleOffController(){}
 
 }
 

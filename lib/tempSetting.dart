@@ -5,6 +5,13 @@ class TempSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Temp Setting'),
+      ),
+      body: Container(
+        child: Text('temp setting'),
+      ),
+    );
   }
 }

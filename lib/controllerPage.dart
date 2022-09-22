@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smartmirror_controller/curtainSetting.dart';
+import 'package:smartmirror_controller/lightSetting.dart';
+import 'package:smartmirror_controller/tempSetting.dart';
 
 class ControllerPage extends StatefulWidget {
   const ControllerPage({Key? key}) : super(key: key);
@@ -49,7 +52,9 @@ class _ControllerPageState extends State<ControllerPage> {
                       Icon(Icons.power_settings_new),
                       IconButton(
                           icon: Icon(Icons.settings_applications_outlined),
-                          onPressed: (){})
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (c) => LightSetting()));
+                          })
                     ],
                   ),
                   Row(
@@ -100,7 +105,9 @@ class _ControllerPageState extends State<ControllerPage> {
                       Icon(Icons.power_settings_new),
                       IconButton(
                           icon: Icon(Icons.settings_applications_outlined),
-                          onPressed: (){})
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (c) => CurtainSetting()));
+                          })
                     ],
                   ),
                   Row(
@@ -150,7 +157,9 @@ class _ControllerPageState extends State<ControllerPage> {
                       Icon(Icons.power_settings_new),
                       IconButton(
                           icon: Icon(Icons.settings_applications_outlined),
-                          onPressed: (){})
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (c) => TempSetting()));
+                          })
                     ],
                   ),
                   Row(
