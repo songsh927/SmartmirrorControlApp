@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smartmirror_controller/curtainSetting.dart';
 import 'package:smartmirror_controller/lightSetting.dart';
+import 'package:smartmirror_controller/main.dart';
 import 'package:smartmirror_controller/tempSetting.dart';
 
 class ControllerPage extends StatefulWidget {
@@ -62,10 +64,20 @@ class _ControllerPageState extends State<ControllerPage> {
                     children: [
                       OutlinedButton(
                           child: Text('On'),
-                          onPressed: (){}),
+                          onPressed: (){
+                            var ctrl = {
+                              'ctrl' : 1
+                            };
+                            context.read<SmartmirrorData>().moduleOnController('lightcontroller', ctrl);
+                          }),
                       OutlinedButton(
                           child: Text('Off'),
-                          onPressed: (){})
+                          onPressed: (){
+                            var ctrl = {
+                              'ctrl' : 0
+                            };
+                            context.read<SmartmirrorData>().moduleOffController('lightcontroller', ctrl);
+                          })
                     ],
                   )
                 ],
@@ -115,10 +127,20 @@ class _ControllerPageState extends State<ControllerPage> {
                     children: [
                       OutlinedButton(
                           child: Text('On'),
-                          onPressed: (){}),
+                          onPressed: (){
+                            var ctrl = {
+                              'ctrl' : 1
+                            };
+                            context.read<SmartmirrorData>().moduleOnController('curtaincontroller', ctrl);
+                          }),
                       OutlinedButton(
                           child: Text('Off'),
-                          onPressed: (){})
+                          onPressed: (){
+                            var ctrl = {
+                              'ctrl' : 0
+                            };
+                            context.read<SmartmirrorData>().moduleOffController('curtaincontroller', ctrl);
+                          })
                     ],
                   )
                 ],
@@ -167,10 +189,20 @@ class _ControllerPageState extends State<ControllerPage> {
                     children: [
                       OutlinedButton(
                           child: Text('On'),
-                          onPressed: (){}),
+                          onPressed: (){
+                            var ctrl = {
+                              'ctrl' : 1
+                            };
+                            context.read<SmartmirrorData>().moduleOnController('tempcontroller', ctrl);
+                          }),
                       OutlinedButton(
                           child: Text('Off'),
-                          onPressed: (){})
+                          onPressed: (){
+                            var ctrl = {
+                              'ctrl' : 0
+                            };
+                            context.read<SmartmirrorData>().moduleOffController('tempcontroller', ctrl);
+                          })
                     ],
                   )
                 ],

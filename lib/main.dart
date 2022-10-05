@@ -24,8 +24,10 @@ class SmartmirrorData extends ChangeNotifier{
 
   var scheduleData = [];
 
+  //스케줄 데이터 가져오는 함수
   getSchedule(){}
 
+  //스케줄 데이터 추가 함수
   addSchedule(date, title, text) async{
     http.Response res = await http.post(
       Uri.parse('http://localhost:3000/schedule'),
@@ -49,10 +51,12 @@ class SmartmirrorData extends ChangeNotifier{
 
   }
 
+  //기존 스케줄 데이터 업데이트
   updateSchedule(id,date, title, text){
 
   }
 
+  //특정 스케줄 데이터 삭제
   deleteSchedule(id) async{
     http.Response res = await http.delete(
       Uri.parse('http://localhost:3000/schedule/${id}'),
@@ -76,35 +80,27 @@ class SmartmirrorData extends ChangeNotifier{
     }
   }
 
-  moduleOnController(moduleNum, options) async{
-
-    var data;
-
-    if(moduleNum == 3){
-      data = {
-        "ctrl" : 1,
-        "redValue":"250",
-        "greenValue":"250",
-        "blueValue":"200"
-      };
-    }
-    else if(moduleNum == 1){
-
-    }
-    else if(moduleNum ==2){
-
-    }
+  //모듈 전원 ON 컨트롤러
+  moduleOnController(moduleName, options) async{
 
     http.Response res = await http.post(
-        Uri.parse('http://localhost:3000/schedule'),
+        Uri.parse('http://localhost:3000/remote/${moduleName}'),
         headers: {"Content-type" : "application/json"},
-        body: jsonEncode(data)
+        body: jsonEncode(options)
     );
-
 
   }
 
-  moduleOffController(){}
+  //모듈 전원 OFF 컨트롤러
+  moduleOffController(moduleName, ctrl) async{
+
+    http.Response res = await http.post(
+        Uri.parse('http://localhost:3000/remote/${moduleName}'),
+        headers: {"Content-type" : "application/json"},
+        body: jsonEncode(ctrl)
+    );
+
+  }
 
 }
 
