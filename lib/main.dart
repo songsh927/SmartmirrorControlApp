@@ -25,12 +25,30 @@ class SmartmirrorData extends ChangeNotifier{
   var scheduleData = [];
 
   //스케줄 데이터 가져오는 함수
-  getSchedule(){}
+  getSchedule() async{
+    http.Response res;
+
+    try{
+      res = await http.get(
+        Uri.parse('http://192.168.0.7:3000/schedule'),
+        headers: {"Content-type" : "application/json"},
+      );
+    }catch(e){
+      print('please reset your Server IP');
+      return 'please reset your Server IP';
+    }
+
+    if(res.statusCode == 200){
+      var schedules = jsonDecode(res.body);
+      scheduleData.add(schedules);
+      notifyListeners();
+    }
+  }
 
   //스케줄 데이터 추가 함수
   addSchedule(date, title, text) async{
     http.Response res = await http.post(
-      Uri.parse('http://localhost:3000/schedule'),
+      Uri.parse('http://192.168.0.7:3000/schedule'),
       headers: {"Content-type" : "application/json"},
       body: jsonEncode({
         'date' : date,
@@ -59,7 +77,7 @@ class SmartmirrorData extends ChangeNotifier{
   //특정 스케줄 데이터 삭제
   deleteSchedule(id) async{
     http.Response res = await http.delete(
-      Uri.parse('http://localhost:3000/schedule/${id}'),
+      Uri.parse('http://192.168.0.7:3000/schedule/${id}'),
       headers: {"Content-type" : "application/json"},
     );
 
@@ -84,7 +102,7 @@ class SmartmirrorData extends ChangeNotifier{
   moduleOnController(moduleName, options) async{
 
     http.Response res = await http.post(
-        Uri.parse('http://localhost:3000/remote/${moduleName}'),
+        Uri.parse('http://192.168.0.7:3000/remote/${moduleName}'),
         headers: {"Content-type" : "application/json"},
         body: jsonEncode(options)
     );
@@ -95,11 +113,29 @@ class SmartmirrorData extends ChangeNotifier{
   moduleOffController(moduleName, ctrl) async{
 
     http.Response res = await http.post(
-        Uri.parse('http://localhost:3000/remote/${moduleName}'),
+        Uri.parse('http://192.168.0.7:3000/remote/${moduleName}'),
         headers: {"Content-type" : "application/json"},
         body: jsonEncode(ctrl)
     );
 
+  }
+
+  moduleGetStatus(moduleName) async{
+
+    http.Response res;
+
+    try{
+      res = await http.post(
+        Uri.parse('http://192.168.0.7/remote/${moduleName}'),
+      );
+    }catch(e){
+      return 'plz reset IP';
+    }
+
+
+    if(res.statusCode == 200){
+
+    }
   }
 
 }

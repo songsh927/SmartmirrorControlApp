@@ -16,6 +16,13 @@ class _SchedulePageState extends State<SchedulePage> {
   var scroll = ScrollController();
 
   @override
+  void initState(){
+    super.initState();
+    print('schedule');
+    context.read<SmartmirrorData>().getSchedule();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
