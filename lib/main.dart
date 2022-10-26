@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -22,7 +21,10 @@ void main() {
 
 class SmartmirrorData extends ChangeNotifier{
 
+
   var scheduleData = [];
+  //var settingIp = '192.168.0.7';
+  var settingIp = 'localhost';
 
   //스케줄 데이터 가져오는 함수
   getSchedule() async{
@@ -30,7 +32,7 @@ class SmartmirrorData extends ChangeNotifier{
 
     try{
       res = await http.get(
-        Uri.parse('http://192.168.0.7:3000/schedule'),
+        Uri.parse('http://${settingIp}:3000/schedule'),
         headers: {"Content-type" : "application/json"},
       );
     }catch(e){
@@ -40,20 +42,21 @@ class SmartmirrorData extends ChangeNotifier{
 
     if(res.statusCode == 200){
       var schedules = jsonDecode(res.body);
-      scheduleData.add(schedules);
+      scheduleData.addAll(schedules);
       notifyListeners();
     }
   }
 
   //스케줄 데이터 추가 함수
   addSchedule(date, title, text) async{
+
     http.Response res = await http.post(
-      Uri.parse('http://192.168.0.7:3000/schedule'),
+      Uri.parse('http://${settingIp}:3000/schedule'),
       headers: {"Content-type" : "application/json"},
       body: jsonEncode({
-        'date' : date,
-        'title': title,
-        'text' : text
+        'date' : date.toString(),
+        'title': title.toString(),
+        'text' : text.toString()
       })
     );
 
@@ -77,7 +80,7 @@ class SmartmirrorData extends ChangeNotifier{
   //특정 스케줄 데이터 삭제
   deleteSchedule(id) async{
     http.Response res = await http.delete(
-      Uri.parse('http://192.168.0.7:3000/schedule/${id}'),
+      Uri.parse('http://${settingIp}:3000/schedule/${id}'),
       headers: {"Content-type" : "application/json"},
     );
 
@@ -102,7 +105,7 @@ class SmartmirrorData extends ChangeNotifier{
   moduleOnController(moduleName, options) async{
 
     http.Response res = await http.post(
-        Uri.parse('http://192.168.0.7:3000/remote/${moduleName}'),
+        Uri.parse('http://${settingIp}:3000/remote/${moduleName}'),
         headers: {"Content-type" : "application/json"},
         body: jsonEncode(options)
     );
@@ -113,7 +116,7 @@ class SmartmirrorData extends ChangeNotifier{
   moduleOffController(moduleName, ctrl) async{
 
     http.Response res = await http.post(
-        Uri.parse('http://192.168.0.7:3000/remote/${moduleName}'),
+        Uri.parse('http://${settingIp}:3000/remote/${moduleName}'),
         headers: {"Content-type" : "application/json"},
         body: jsonEncode(ctrl)
     );
@@ -126,10 +129,14 @@ class SmartmirrorData extends ChangeNotifier{
 
     try{
       res = await http.post(
-        Uri.parse('http://192.168.0.7/remote/${moduleName}'),
+        Uri.parse('http://${settingIp}:3000/remote/${moduleName}'),
       );
     }catch(e){
-      return 'plz reset IP';
+      return AlertDialog(
+        title: Text('연결 실패'),
+        content: Text('IP연결을 확인하세요'),
+        actions: [],
+      );//'plz reset IP';
     }
 
 
@@ -149,6 +156,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState(){
+    super.initState();
+    context.read<SmartmirrorData>().getSchedule();
+  }
+
   var tab = 0;
 
   @override

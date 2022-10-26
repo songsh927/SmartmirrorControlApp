@@ -21,19 +21,19 @@ class LightSetting extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Red Value'),
+            Text('Red Value (0~255)'),
             SizedBox(
               child: TextField(
                 controller: redValueController,
               ),
             ),
-            Text('Green Value'),
+            Text('Green Value (0~255)'),
             SizedBox(
               child: TextField(
                 controller: greenValueController,
               ),
             ),
-            Text('Blue Value'),
+            Text('Blue Value (0~255)'),
             SizedBox(
               child: TextField(
                 controller: blueValueController,

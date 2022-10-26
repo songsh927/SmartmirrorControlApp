@@ -16,13 +16,6 @@ class _SchedulePageState extends State<SchedulePage> {
   var scroll = ScrollController();
 
   @override
-  void initState(){
-    super.initState();
-    print('schedule');
-    context.read<SmartmirrorData>().getSchedule();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -34,6 +27,13 @@ class _SchedulePageState extends State<SchedulePage> {
                 showDialog(context: context, builder: (context){
                   return AddSchedule();
                 });
+              }
+          ),
+          IconButton(
+              icon: Icon(Icons.refresh) ,
+              onPressed: (){
+                context.read<SmartmirrorData>().scheduleData.clear();
+                context.read<SmartmirrorData>().getSchedule();
               }
           )
         ],
@@ -51,7 +51,7 @@ class _SchedulePageState extends State<SchedulePage> {
               children: [
                 Container(
                   width: double.infinity,
-                  child: Text('Date : ${context.read<SmartmirrorData>().scheduleData[i]['date']}'),
+                  child: Text('Date : '+ context.read<SmartmirrorData>().scheduleData[i]['date'].toString()),
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
@@ -63,7 +63,7 @@ class _SchedulePageState extends State<SchedulePage> {
                 ),
                 Container(
                   width: double.infinity,
-                  child: Text('Title : '+context.read<SmartmirrorData>().scheduleData[i]['title']),
+                  child: Text('Title : '+ context.read<SmartmirrorData>().scheduleData[i]['title'].toString()),
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
