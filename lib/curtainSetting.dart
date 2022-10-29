@@ -20,6 +20,7 @@ class _CurtainSettingState extends State<CurtainSetting> {
     final result = await TimePicker.show<DateTime?>(
       context: context,
       sheet: TimePickerSheet(
+        minuteInterval: 5,
         sheetTitle: 'Select meeting schedule',
         minuteTitle: 'Minute',
         hourTitle: 'Hour',
@@ -30,8 +31,6 @@ class _CurtainSettingState extends State<CurtainSetting> {
     if (result != null) {
       setState(() {
         tempOnTime = result;
-        print(tempOnTime.hour);
-        print(tempOnTime.minute);
       });
     }
   }
@@ -40,6 +39,7 @@ class _CurtainSettingState extends State<CurtainSetting> {
     final result = await TimePicker.show<DateTime?>(
       context: context,
       sheet: TimePickerSheet(
+        minuteInterval: 5,
         sheetTitle: 'Select meeting schedule',
         minuteTitle: 'Minute',
         hourTitle: 'Hour',
@@ -50,8 +50,6 @@ class _CurtainSettingState extends State<CurtainSetting> {
     if (result != null) {
       setState(() {
         tempOffTime = result;
-        print(tempOffTime.hour);
-        print(tempOffTime.minute);
       });
     }
   }
@@ -97,12 +95,10 @@ class _CurtainSettingState extends State<CurtainSetting> {
                 ElevatedButton( child: Text('확인'),onPressed: (){
                   var options = {
                     'ctrl':1,
-                    'onTimeHour': tempOnTime.hour,
-                    'onTimeMinute':tempOnTime.minute,
-                    'offTimeHour': tempOffTime.hour,
-                    'offTimeMinute': tempOffTime.minute
+                    'onTime': tempOnTime.toString(),
+                    'offTime': tempOffTime.toString()
                   };
-                  context.read<SmartmirrorData>().moduleOnController('tempcontroller', options);
+                  context.read<SmartmirrorData>().moduleOnController('curtaincontroller', options);
                   Navigator.pop(context);
                 }),
                 ElevatedButton( child: Text('취소'),onPressed: (){

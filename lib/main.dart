@@ -104,6 +104,7 @@ class SmartmirrorData extends ChangeNotifier{
   //모듈 전원 ON 컨트롤러
   moduleOnController(moduleName, options) async{
 
+    print(options);
     http.Response res = await http.post(
         Uri.parse('http://${settingIp}:3000/remote/${moduleName}'),
         headers: {"Content-type" : "application/json"},
@@ -114,6 +115,7 @@ class SmartmirrorData extends ChangeNotifier{
 
   //모듈 전원 OFF 컨트롤러
   moduleOffController(moduleName, ctrl) async{
+
 
     http.Response res = await http.post(
         Uri.parse('http://${settingIp}:3000/remote/${moduleName}'),

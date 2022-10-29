@@ -19,6 +19,7 @@ class _TempSettingState extends State<TempSetting> {
     final result = await TimePicker.show<DateTime?>(
       context: context,
       sheet: TimePickerSheet(
+        minuteInterval: 5,
         sheetTitle: 'Select meeting schedule',
         minuteTitle: 'Minute',
         hourTitle: 'Hour',
@@ -29,8 +30,6 @@ class _TempSettingState extends State<TempSetting> {
     if (result != null) {
       setState(() {
         tempOnTime = result;
-        print(tempOnTime.hour);
-        print(tempOnTime.minute);
       });
     }
   }
@@ -39,6 +38,7 @@ class _TempSettingState extends State<TempSetting> {
     final result = await TimePicker.show<DateTime?>(
       context: context,
       sheet: TimePickerSheet(
+        minuteInterval: 5,
         sheetTitle: 'Select meeting schedule',
         minuteTitle: 'Minute',
         hourTitle: 'Hour',
@@ -49,8 +49,6 @@ class _TempSettingState extends State<TempSetting> {
     if (result != null) {
       setState(() {
         tempOffTime = result;
-        print(tempOffTime.hour);
-        print(tempOffTime.minute);
       });
     }
   }
@@ -96,10 +94,8 @@ class _TempSettingState extends State<TempSetting> {
                 ElevatedButton( child: Text('확인'),onPressed: (){
                   var options = {
                     'ctrl':1,
-                    'onTimeHour': tempOnTime.hour,
-                    'onTimeMinute':tempOnTime.minute,
-                    'offTimeHour': tempOffTime.hour,
-                    'offTimeMinute': tempOffTime.minute
+                    'onTime': tempOnTime,
+                    'offTime': tempOffTime
                   };
                   context.read<SmartmirrorData>().moduleOnController('tempcontroller', options);
                   Navigator.pop(context);
