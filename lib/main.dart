@@ -78,15 +78,15 @@ class SmartmirrorData extends ChangeNotifier{
   }
 
   //특정 스케줄 데이터 삭제
-  deleteSchedule(id) async{
+  deleteSchedule(idx) async{
     http.Response res = await http.delete(
-      Uri.parse('http://${settingIp}:3000/schedule/${id}'),
+      Uri.parse('http://${settingIp}:3000/schedule/${idx}'),
       headers: {"Content-type" : "application/json"},
     );
 
     if(res.statusCode == 204){
       for (int i = 0 ; i < scheduleData.length ; i++) {
-        if(id == scheduleData[i]['id']){
+        if(idx == scheduleData[i]['idx']){
           scheduleData.removeAt(i);
         }
       }

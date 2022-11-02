@@ -80,7 +80,7 @@ class _SchedulePageState extends State<SchedulePage> {
                     IconButton(
                         icon: Icon(Icons.check_box_outlined),
                         onPressed: () async {
-                          await context.read<SmartmirrorData>().deleteSchedule(context.read<SmartmirrorData>().scheduleData[i]['id']);
+                          await context.read<SmartmirrorData>().deleteSchedule(context.read<SmartmirrorData>().scheduleData[i]['idx']);
                         }
                     ),
                   ],
